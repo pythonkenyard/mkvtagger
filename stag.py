@@ -288,7 +288,7 @@ class tagger:
             with open("tags.xml", "w") as g:
                 g.write(episodewritedata)
             g.close()
-            os.system(f'mkvpropedit "{self.folder}/{file}" --edit info --set "title={file}" --edit track:a1 --set language=eng')
+            os.system(f'mkvpropedit "{self.folder}/{file}" --edit info --set "title={file}"')
             os.system(f'mkvpropedit "{self.folder}/{file}" --tags global:tags.xml')
             print(f"{file} updated")
 
