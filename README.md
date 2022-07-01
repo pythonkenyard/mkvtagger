@@ -16,7 +16,7 @@ Note track Position and Track Total can only be added by stag.py
 This requires a full season pack to be present to add tags as it counts the total episodes to confirm the total   
    
 # Example of Media info output for 1 file after running stag.py
-General
+General   
 Unique ID                                : 62443573869635734601668401503009219543 (0x11FC914FBFF4149E8C6FAA8253CEA3D7)   
 Complete name                            : Sarah.Beenys.Little.House.Big.Plans.S01E01.1080p.mkv   
 Format                                   : Matroska   
