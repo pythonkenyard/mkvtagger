@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tags SYSTEM "matroskatags.dtd">
+<Tags>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>70</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>IMDB</Name>
+            <String>ttimdbstring</String>
+        </Simple>
+        <Simple>
+            <Name>TMDB</Name>
+            <String>tv/tmdbstring</String>
+        </Simple>
+        <Simple>
+            <Name>TVDB</Name>
+            <String>tvdbstring</String>
+        </Simple>
+    </Tag>
+</Tags>

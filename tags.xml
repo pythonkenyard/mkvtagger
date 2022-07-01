@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tags SYSTEM "matroskatags.dtd">
+<Tags>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>70</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>IMDB</Name>
+            <String>tt21030356</String>
+        </Simple>
+        <Simple>
+            <Name>TMDB</Name>
+            <String>tv/204005</String>
+        </Simple>
+        <Simple>
+            <Name>TVDB</Name>
+            <String>421055</String>
+        </Simple>
+    </Tag>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>60</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>PART_NUMBER</Name>
+            <String>01</String>
+        </Simple>
+        <Simple>
+            <Name>TOTAL_PARTS</Name>
+            <String>6</String>
+        </Simple>
+    </Tag>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>50</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>PART_NUMBER</Name>
+            <String>06</String>
+        </Simple>
+    </Tag>
+</Tags>

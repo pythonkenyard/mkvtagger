@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Tags SYSTEM "matroskatags.dtd">
+<Tags>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>70</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>IMDB</Name>
+            <String>ttimdbstring</String>
+        </Simple>
+        <Simple>
+            <Name>TMDB</Name>
+            <String>tv/tmdbstring</String>
+        </Simple>
+        <Simple>
+            <Name>TVDB</Name>
+            <String>tvdbstring</String>
+        </Simple>
+    </Tag>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>60</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>PART_NUMBER</Name>
+            <String>season</String>
+        </Simple>
+        <Simple>
+            <Name>TOTAL_PARTS</Name>
+            <String>totalepisodes</String>
+        </Simple>
+    </Tag>
+    <Tag>
+        <Targets>
+            <TargetTypeValue>50</TargetTypeValue>
+        </Targets>
+        <Simple>
+            <Name>PART_NUMBER</Name>
+            <String>thisepisode</String>
+        </Simple>
+    </Tag>
+</Tags>
