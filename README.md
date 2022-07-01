@@ -38,9 +38,13 @@ TMDB                                     : tv/204005
 TVDB                                     : 421055   
 
 ## Note the fields added   
-Movie name                               : Sarah.Beenys.Little.House.Big.Plans.S01E01.1080p.mkv - this will match the file title  
-Track name/Position                      : 01 -this is the episode number   
-Track name/Total                         : 6 -this is the total episodes in the folder (how many in the season)   
-IMDB                                     : tt21030356 -this is the imdb tag   
-TMDB                                     : tv/204005 -this is the tmdb tag   
-TVDB                                     : 421055 -this is the tvdb tag   
+Movie name                               : Sarah.Beenys.Little.House.Big.Plans.S01E01.1080p.mkv   
+Track name/Position                      : 01    
+Track name/Total                         : 6    
+IMDB                                     : tt21030356    
+TMDB                                     : tv/204005    
+TVDB                                     : 421055      
+   
+File has movie name added which will match the file title   
+track position is the episode, track total is the total amount of files in the folder (so only use stag.py for complete season packs)   
+imdb tag, tmdb tag, tvdb tag
