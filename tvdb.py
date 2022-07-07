@@ -189,8 +189,6 @@ def get_tvdb(show,seasonepisode):
         'authority': 'thetvdb.com',
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
         'accept-language': 'en-US,en;q=0.9,es;q=0.8,de-DE;q=0.7,de;q=0.6,it;q=0.5',
-        # Requests sorts cookies= alphabetically
-        # 'cookie': 'TVDB_AUTHENTICATED=eyJpdiI6Ikh0WEQ5TXpnSHRYQ1lHa2tXWlNJbUE9PSIsInZhbHVlIjoiQ0ptMHZSZDZyZEZDOVAxREtLbW1EZz09IiwibWFjIjoiYmVmOTEzNmI3NjE1YTY5YWUxMjUzYzFmMjU0MjQyMWY5NzEyNjEwZmQwYWY5ZjU0MmJkYzQxOWUyNTcwMGIwZSJ9; tvdb_5ce3823a428dc=eyJpdiI6IndHUWx3RmVDYlFZYVJSVks1Z1pmU2c9PSIsInZhbHVlIjoid3YwRk54c05tVW0xYmVpK0dMY2o5clRlbTFJZ29ySm15blljRjdEbndQd2xiOUhuV1BPTVZJdVwvYXRBQk5QUkFENTlHbDBOUk00ZUZhcGx3Qno1S0VnPT0iLCJtYWMiOiI4MGQ4NWRjYTY1ZDZhZGUwN2E3NmI0MjNlNzhmY2I2M2UzYmM1NzY2ZTBkYjExZmIzNWI5ZWM4YjRmZmM5ZjM5In0%3D',
         'dnt': '1',
         'referer': 'https://thetvdb.com/series/'+slug,
         'sec-ch-ua': '" Not A;Brand";v="99", "Chromium";v="101", "Google Chrome";v="101"',
