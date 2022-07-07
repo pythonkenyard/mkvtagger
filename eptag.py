@@ -44,6 +44,7 @@ class tagger:
                 self.imdbnum = movies[0].movieID
                 self.imdbtitle = movies[0]["title"]
                 self.imdbyear = movies[0]["year"]
+                print(f"{self.imdbnum} - {self.imdbtitle} - {self.imdbyear}")
             elif len(movies)>1:
                 possiblemovie = 1
                 printtable = [["No.","Year","Title","IMDb"]]
@@ -127,15 +128,16 @@ class tagger:
             #print(seasonepisode)
             tvdbdata = tvdb.get_tvdb(self.title,seasonepisode)
             print("gathered tvdb data")
-            #print(str(tvdbdata))
+            print(str(tvdbdata))
         except:
             print("no tvdb information available")
 
         try:
             self.tvdbid = tvdbdata[0]
+            self.tvdbtitle = tvdbdata[1]
 
         except:
-            self.tvdbid = "1"
+            self.tvdbid, self.tvdbtitle = "1", "none"
 
     #tvdb
     def tmdb(self):
@@ -147,11 +149,13 @@ class tagger:
                 print("checking movie results")
                 self.tmdbid = tmdbrequest["movie_results"][0]["id"]
                 self.tmdb_desc = tmdbrequest["movie_results"][0]["overview"]
+                self.tmdbtitle = tmdbrequest["results"][0]["title"]
                 self.tmdb_type = "movie"
             except:
                 print("checking tv results")
                 self.tmdbid = tmdbrequest["tv_results"][0]["id"]
                 self.tmdb_desc = tmdbrequest["tv_results"][0]["overview"]
+                self.tmdbtitle = tmdbrequest["results"][0]["title"]
                 self.tmdb_type = "tv"
         except:
             print(f"Failed cross-checking TMDB against IMDB (no result?).\nUsing direct search for {self.title}.")
@@ -171,7 +175,8 @@ class tagger:
                     tmdblist.append([f"({tmdbselection})", year, title, id, overviewabbv])
                     tmdbselection += 1
                 tvdivider = tmdbselection
-                print(str(tvdivider))
+                #print(str(tvdivider))
+                print("Possible movie matches")
                 for row in tmdblist:
                     print("{: <4} {: <5} {: <30} {: <5} {: <60}".format(*row))
                 tmdbrequest2 = requests.get(url = f"https://api.themoviedb.org/3/search/tv?api_key={self.tmdb_api_key}&query={filetitle}").json()
@@ -195,8 +200,8 @@ class tagger:
                     print("no matches")
                 if tmdbselection > 1:
                     if tmdbselection ==2:
-                        print("single result. Automatically assigning tmdb tv show id")
                         choice = 1
+
                     else:
                         choice = int(input(f"Select matching TMDB option 1-{tmdbselection}: "))
                 else:
@@ -207,23 +212,28 @@ class tagger:
                         choice -= 1
                         self.tmdbid = tmdbrequest["results"][choice]["id"]
                         self.tmdb_desc = tmdbrequest["results"][choice]["overview"]
+                        self.tmdbtitle = tmdbrequest["results"][choice]["title"]
                         self.tmdb_type = "movie"
                     except:
                         print("Not possible to assign due to error")
                 else:
-                    choice-= tvdivider
+                    choice -= tvdivider
+                    #choice -= 1
+                    print(str(choice))
+                    print(str(tmdbrequest2["results"]))
                     try:
                         self.tmdbid = tmdbrequest2["results"][choice]["id"]
                         self.tmdb_desc = tmdbrequest2["results"][choice]["overview"]
+                        self.tmdbtitle = tmdbrequest2["results"][choice]["name"]
                         tmdb_type = "tv"
                     except:
                         print("No TMDB picked. Assigning id of 1")
-                        self.tmdbid, self.tmdb_desc, self.tmdb_type = "1", "none", "none"
+                        self.tmdbid, self.tmdb_desc, self.tmdb_type, self.tmdbtitle = "1", "none", "none", "undefined"
 
             except:
                 print("failed getting tmdb id. is your api key correct")
-                self.tmdbid, self.tmdb_desc, self.tmdb_type = "1", "none", "none"
-        print(f"TMDB Id found to be {self.tmdbid}")
+                self.tmdbid, self.tmdb_desc, self.tmdb_type, self.tmdbtitle = "1", "none", "none", "undefined"
+        print(f"TMDB Id found to be {self.tmdbid} - {self.tmdbtitle}")
 
     def formatxmldata(self):
         #print(f"{self.imdbnum}, {self.tmdbid}, {self.tvdbid}")
@@ -233,28 +243,26 @@ class tagger:
         
         f.close()
 
-        try:
-            if len(self.imdbnum)>2:
-                self.writedata = self.xmldata.replace("imdbstring", self.imdbnum)
-        except:
+        if len(self.imdbnum)>2:
+            self.writedata = self.xmldata.replace("imdbstring", self.imdbnum)
+        else:
             removeimdb = re.search("(\s*<Simple>\s*.*IMDB.*\s.*\s.*\s*)<Simple>", self.xmldata)
             #print(removeimdb.group(1))
             self.writedata = self.xmldata.replace(removeimdb.group(1), "")
-        try:
-            if len(str(self.tmdbid))>2:
-                self.writedata = self.writedata.replace("tmdbstring", str(self.tmdbid))
-        except:
+
+        if len(str(self.tmdbid))>2:
+            self.writedata = self.writedata.replace("tmdbstring", str(self.tmdbid))
+        else:
             removetmdb = re.search("(\s*<Simple>\s*.*TMDB.*\s.*\s.*\s*)<Simple>", self.writedata)
             #print(removetmdb.group(1))
             self.writedata = self.writedata.replace(removetmdb.group(1), "")
-        try:
-            if len(str(self.tvdbid))>2:
-                self.writedata = self.writedata.replace("tvdbstring", str(self.tvdbid))
-        except:
+
+        if len(str(self.tvdbid))>2:
+            self.writedata = self.writedata.replace("tvdbstring", str(self.tvdbid))
+        else:
             removetvdb = re.search("(\s*<Simple>\s*.*TVDB.*\s.*\s.*<\/Simple>)", self.writedata)
             #print(removetvdb.group(1))
             self.writedata = self.writedata.replace(removetvdb.group(1), "")
-        print(self.writedata)
 
     def search(self):
         self.imdb()
@@ -265,18 +273,30 @@ class tagger:
             self.tmdb_api_key = str(input("no tmdb api key detected. Please edit in the script and run again or enter it now: "))
             self.tmdb()
         self.tvdb()
-        print(f"TMDB: {self.tmdbid}")
-        print(f"IMDB: {self.imdbnum}")
-        print(f"TVDB: {self.tvdbid}")
+        
+        confirmation = "n"
+        while confirmation != "y":
+            print(f"\n(1) TMDB: {self.tmdbid} - {self.tmdbtitle}")
+            print(f"(2) IMDB: {self.imdbnum} - {self.imdbtitle}")
+            print(f"(3) TVDB: {self.tvdbid} - {self.tvdbtitle}")
+            
+            confirmation = input("confirm [y] or [1/2/3] to change: ").lower()
+            if confirmation == "1":
+                self.tmdbid = input(f"{self.tmdbid} new TMDB: ")
+            if confirmation == "2":
+                self.imdbnum = input(f"{self.imdbnum} new IMDB: ")
+            if confirmation == "1":
+                self.tvdbid = input(f"{self.tvdbid} new TVDB: ")
     #add tags
     def tags(self):
 
         for file in self.target:
-            
+            name = file.split("/")[-1]
+            print(name)
             with open("tags.xml", "w") as g:
                 g.write(self.writedata)
 
-            os.system(f'mkvpropedit "{file}" --edit info --set "title={file}"')
+            #os.system(f'mkvpropedit "{file}" --edit info --set "title={name}" --edit track:a1 --set language=eng')
             os.system(f'mkvpropedit "{file}" --tags global:tags.xml')
             print(f"{file} updated")
 
